@@ -1,5 +1,7 @@
 package archsoftwokrs.pong.actores;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
+
 import archsoftwokrs.pong.nucleo.Pong;
 
 import com.badlogic.gdx.Gdx;
@@ -7,12 +9,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class ActorBola extends Actor {
 
 	private TextureRegion texBola;
 	private Rectangle recBola;
+	
+	private Vector2 direccion = new Vector2(90f, 90f);
 	
 	public ActorBola() {
 		
@@ -29,7 +34,7 @@ public class ActorBola extends Actor {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		setPosition(getX() * delta, getY() * delta);
+		translate(direccion.x * delta, direccion.y * delta);
 		this.recBola.x = getX();
 		this.recBola.y = getY();
 	}
