@@ -17,9 +17,9 @@ public class ActorPala extends Actor {
  	
 	public ActorPala() {
 		//Inicializamos la region de la textura y definimos sus dimensiones.
-		this.texPala = new TextureRegion(Pong.MANAGER.get("imagenes/pala.png", Texture.class)
-									   , Pong.MANAGER.get("imagenes/pala.png", Texture.class).getWidth()
-									   , Pong.MANAGER.get("imagenes/pala.png", Texture.class).getHeight());
+		this.texPala = new TextureRegion(Pong.MANAGER.get("imagenes/pala.png", Texture.class),
+									     Pong.MANAGER.get("imagenes/pala.png", Texture.class).getWidth(),
+									     Pong.MANAGER.get("imagenes/pala.png", Texture.class).getHeight());
 		
 		//Definimos las dimensiones del actor.
 		setSize(this.texPala.getRegionWidth(), this.texPala.getRegionHeight());
