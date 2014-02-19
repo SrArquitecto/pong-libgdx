@@ -1,7 +1,5 @@
 package archsoftwokrs.pong.actores;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
-
 import archsoftwokrs.pong.nucleo.Pong;
 
 import com.badlogic.gdx.Gdx;
@@ -17,7 +15,15 @@ public class ActorBola extends Actor {
 	private TextureRegion texBola;
 	private Rectangle recBola;
 	
-	private Vector2 direccion = new Vector2(90f, 90f);
+	private Vector2 direccion = new Vector2(-120f, -120f);
+	
+	public Rectangle getRec() {
+		return recBola;
+	}
+	
+	public Vector2 getDireccion() {
+		return direccion;
+	}
 	
 	public ActorBola() {
 		
@@ -37,11 +43,31 @@ public class ActorBola extends Actor {
 		translate(direccion.x * delta, direccion.y * delta);
 		this.recBola.x = getX();
 		this.recBola.y = getY();
+		
+		this.comprobarLimites();
+		
 	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-
+		super.draw(batch, parentAlpha);
 		batch.draw(Pong.MANAGER.get("imagenes/bola.png", Texture.class), getX(), getY());
 	}
+	
+	public void comprobarLimites() {
+		if(getY() <= 0) {
+			setY(0);
+			this.direccion.y = -this.direccion.y + 10;
+			this.direccion.x = this.direccion.x + 10;
+		}
+		
+		else if(getY() >= Gdx.graphics.getHeight() - this.texBola.getRegionHeight()) {
+			setY(Gdx.graphics.getHeight() - this.texBola.getRegionHeight());
+			this.direccion.y = -this.direccion.y + 10;
+			this.direccion.x = this.direccion.x + 10;
+		}
+			
+	}
+	
+
 }

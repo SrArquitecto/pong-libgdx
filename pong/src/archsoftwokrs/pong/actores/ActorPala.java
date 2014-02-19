@@ -38,7 +38,7 @@ public class ActorPala extends Actor {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-
+		super.draw(batch, parentAlpha);
 		batch.draw(this.texPala, getX(), this.recPala.y /*getY()*/, getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
 		
 		//this.mover();
