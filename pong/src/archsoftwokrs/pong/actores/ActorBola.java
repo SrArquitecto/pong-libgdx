@@ -3,9 +3,11 @@ package archsoftwokrs.pong.actores;
 import archsoftwokrs.pong.nucleo.Pong;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -15,7 +17,7 @@ public class ActorBola extends Actor {
 	private TextureRegion texBola;
 	private Rectangle recBola;
 	
-	private Vector2 direccion = new Vector2(-120f, -120f);
+	private Vector2 direccion = new Vector2(200f, 30f); //-120f);
 	
 	public Rectangle getRec() {
 		return recBola;
@@ -27,7 +29,7 @@ public class ActorBola extends Actor {
 	
 	public ActorBola() {
 		
-		this.texBola = new TextureRegion(Pong.MANAGER.get("imagenes/bola.png",  Texture.class), 
+		this.texBola = new TextureRegion(Pong.MANAGER.get("imagenes/bola.png", Texture.class), 
 										 Pong.MANAGER.get("imagenes/bola.png", Texture.class).getWidth(), 
 										 Pong.MANAGER.get("imagenes/bola.png", Texture.class).getHeight());
 		
@@ -40,7 +42,9 @@ public class ActorBola extends Actor {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+		
 		translate(direccion.x * delta, direccion.y * delta);
+		
 		this.recBola.x = getX();
 		this.recBola.y = getY();
 		
@@ -57,17 +61,19 @@ public class ActorBola extends Actor {
 	public void comprobarLimites() {
 		if(getY() <= 0) {
 			setY(0);
-			this.direccion.y = -this.direccion.y + 10;
+			this.direccion.y = - (this.direccion.y + 10);
 			this.direccion.x = this.direccion.x + 10;
+			Pong.MANAGER.get("sonido/sonidoLimite.ogg", Sound.class).play();
+			
 		}
 		
 		else if(getY() >= Gdx.graphics.getHeight() - this.texBola.getRegionHeight()) {
 			setY(Gdx.graphics.getHeight() - this.texBola.getRegionHeight());
-			this.direccion.y = -this.direccion.y + 10;
+			this.direccion.y = - (this.direccion.y + 10);
 			this.direccion.x = this.direccion.x + 10;
+			Pong.MANAGER.get("sonido/sonidoLimite.ogg", Sound.class).play();
 		}
 			
 	}
-	
 
 }

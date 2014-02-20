@@ -10,23 +10,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class ActorPala extends Actor {
-
-	private TextureRegion texPala;
-	private Rectangle recPala;
+public class ActorPala extends ActorPalaBase {
  	
 	public ActorPala() {
-		//Inicializamos la region de la textura y definimos sus dimensiones.
-		this.texPala = new TextureRegion(Pong.MANAGER.get("imagenes/pala.png", Texture.class),
-									     Pong.MANAGER.get("imagenes/pala.png", Texture.class).getWidth(),
-									     Pong.MANAGER.get("imagenes/pala.png", Texture.class).getHeight());
-		
-		//Definimos las dimensiones del actor.
-		setSize(this.texPala.getRegionWidth(), this.texPala.getRegionHeight());
-		
-		//Inicializamos el rectangulo de colisiones del actor.
-		this.recPala = new Rectangle(getX(), getY(), getWidth(), getHeight());
-		
+		super();	
 	}
 	
 	@Override
@@ -34,19 +21,17 @@ public class ActorPala extends Actor {
 		super.act(delta);
 		this.recPala.y = getY();
 		this.recPala.x = getX();
-	}
-	
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		batch.draw(this.texPala, getX(), this.recPala.y /*getY()*/, getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
-		
-		//this.mover();
+		mover();
 	}
 	
 	public void mover() {
 		if(Gdx.input.isKeyPressed(Keys.DOWN)) {
 			setY(getY() - 500 * Gdx.graphics.getDeltaTime());
+			//this.recPala.y -= 500 * Gdx.graphics.getDeltaTime(); 
+		}
+		
+		if(Gdx.input.isKeyPressed(Keys.UP)) {
+			setY(getY() + 500 * Gdx.graphics.getDeltaTime());
 			//this.recPala.y -= 500 * Gdx.graphics.getDeltaTime(); 
 		}
 	}

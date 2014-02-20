@@ -4,6 +4,7 @@ import archsoftwokrs.pong.pantallas.PantallaJuego;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Pong extends Game {
@@ -16,6 +17,9 @@ public class Pong extends Game {
 	public void create() {		
 		Pong.MANAGER.load("imagenes/pala.png", Texture.class);
 		Pong.MANAGER.load("imagenes/bola.png", Texture.class);
+		Pong.MANAGER.load("sonido/sonidoPala.ogg", Sound.class);
+		Pong.MANAGER.load("sonido/sonidoLimite.ogg", Sound.class);
+		Pong.MANAGER.load("sonido/sonidoPunto.ogg", Sound.class);
 
 		while(!Pong.MANAGER.update()) {
 			
@@ -30,5 +34,6 @@ public class Pong extends Game {
 	
 	public void dispose() {
 	Pong.MANAGER.dispose();
+	this.pantallaJuego.dispose();
 	}
 }

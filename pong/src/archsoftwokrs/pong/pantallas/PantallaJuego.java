@@ -6,13 +6,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import archsoftwokrs.pong.actores.ActorBola;
 import archsoftwokrs.pong.actores.ActorPala;
+import archsoftwokrs.pong.actores.ActorPalaBase;
+import archsoftwokrs.pong.actores.ActorPalaIA;
 import archsoftwokrs.pong.actores.ActorPorteria;
 import archsoftwokrs.pong.nucleo.Pong;
 
 public class PantallaJuego extends PantallaBase {
 	
 	private Stage escena;
-	private ActorPala actorPalaJ1, actorPalaJ2;
+	private ActorPalaBase actorPalaJ1, actorPalaJ2;
 	private ActorBola actorBola;
 	private ActorPorteria actorPorteriaJ1, actorPorteriaJ2;
 	
@@ -26,12 +28,19 @@ public class PantallaJuego extends PantallaBase {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
 		
 		this.escena.act();	
+		
+		this.actorPalaJ1.controlarBola(actorBola);
+		this.actorPalaJ2.controlarBola(actorBola);
+		
+		this.actorPalaJ2.recogerDatosBola(actorBola);
+		
 		this.actorPorteriaJ1.comprobarBola(actorBola);
 		this.actorPorteriaJ2.comprobarBola(actorBola);
+		
 		this.escena.draw();
 	}
 
@@ -43,7 +52,7 @@ public class PantallaJuego extends PantallaBase {
 		this.actorPalaJ1.setPosition(this.posRelativaX, (Gdx.graphics.getHeight() - this.actorPalaJ1.getHeight()) / 2);
 		this.escena.addActor(this.actorPalaJ1);
 		
-		this.actorPalaJ2 = new ActorPala();
+		this.actorPalaJ2 = new ActorPalaIA();
 		this.actorPalaJ2.setPosition(Gdx.graphics.getWidth() - this.posRelativaX, (Gdx.graphics.getHeight() - this.actorPalaJ1.getHeight()) / 2);
 		this.escena.addActor(this.actorPalaJ2);
 		
@@ -67,7 +76,6 @@ public class PantallaJuego extends PantallaBase {
 
 	@Override
 	public void dispose() {
-		Pong.MANAGER.dispose();
 		this.escena.dispose();
 	}
 
